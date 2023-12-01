@@ -43,6 +43,8 @@ class Mount extends Model
         'id' => 'int',
         'read_only' => 'bool',
         'user_mountable' => 'bool',
+        'mount_on_install' => 'bool',
+        'auto_mount' => 'bool',
     ];
 
     /**
@@ -55,6 +57,8 @@ class Mount extends Model
         'target' => 'required|string',
         'read_only' => 'sometimes|boolean',
         'user_mountable' => 'sometimes|boolean',
+        'mount_on_install' => 'sometimes|boolean',
+        'auto_mount' => 'sometimes|boolean',
     ];
 
     /**
@@ -75,7 +79,7 @@ class Mount extends Model
      * Disable timestamps on this model.
      */
     public $timestamps = false;
-
+    
     /**
      * Blacklisted source paths.
      */
@@ -90,6 +94,8 @@ class Mount extends Model
      */
     public static $invalidTargetPaths = [
         '/home/container',
+        '/mnt/install',
+        '/mnt/server',
     ];
 
     /**

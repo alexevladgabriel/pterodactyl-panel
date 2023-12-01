@@ -2,6 +2,10 @@
 
 namespace Pterodactyl\Services\Servers;
 
+use Pterodactyl\Models\EggMount;
+use Pterodactyl\Models\Mount;
+use Pterodactyl\Models\MountNode;
+use Pterodactyl\Models\MountServer;
 use Ramsey\Uuid\Uuid;
 use Illuminate\Support\Arr;
 use Pterodactyl\Models\Egg;
@@ -87,6 +91,7 @@ class ServerCreationService
             // Create the server and assign any additional allocations to it.
             $server = $this->createModel($data);
 
+            $this->storeAssignedEggMounts($server);
             $this->storeAssignedAllocations($server, $data);
             $this->storeEggVariables($server, $eggVariableData);
 
@@ -197,6 +202,27 @@ class ServerCreationService
 
         if (!empty($records)) {
             $this->serverVariableRepository->insert($records);
+        }
+    }
+
+    /**
+     * Process mounts for this server and store them in the database.
+     */
+    private function storeAssignedEggMounts(Server $server): void
+    {
+        $egg_mounts = EggMount::where('egg_id', '=', $server->egg_id)->get()->pluck('mount_id');
+
+        $mounts = Mount::query()->whereIn('id', $egg_mounts)->where(function($query) {
+            $query->where('mount_on_install', '=', true)
+                ->orWhere('auto_mount', '=', true);
+        })->get();
+
+        foreach($mounts as $mount) {
+            $mount_server = (new MountServer())->forceFill([
+                'mount_id' => $mount->id,
+                'server_id' => $server->id,
+            ]);
+            $mount_server->save();
         }
     }
 

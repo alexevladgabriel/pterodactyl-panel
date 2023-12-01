@@ -4,6 +4,7 @@ namespace Pterodactyl\Models;
 
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 /**
  * @property int $id
@@ -271,6 +272,14 @@ class Egg extends Model
     public function servers(): HasMany
     {
         return $this->hasMany(Server::class, 'egg_id');
+    }
+
+    /**
+     * Gets all mounts associated with this egg.
+     */
+    public function mounts(): HasManyThrough
+    {
+        return $this->hasManyThrough(Mount::class, EggMount::class, 'egg_id', 'id', 'id', 'mount_id');
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace Pterodactyl\Providers;
 
+use Pterodactyl\Listeners\DeleteMountsAfterInstall;
 use Pterodactyl\Models\User;
 use Pterodactyl\Models\Server;
 use Pterodactyl\Models\Subuser;
@@ -21,7 +22,7 @@ class EventServiceProvider extends ServiceProvider
      * The event to listener mappings for the application.
      */
     protected $listen = [
-        ServerInstalledEvent::class => [ServerInstalledNotification::class],
+        ServerInstalledEvent::class => [ServerInstalledNotification::class, DeleteMountsAfterInstall::class],
     ];
 
     protected $subscribe = [
