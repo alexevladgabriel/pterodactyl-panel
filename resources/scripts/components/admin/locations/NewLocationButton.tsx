@@ -7,11 +7,12 @@ import { object, string } from 'yup';
 import createLocation from '@/api/admin/locations/createLocation';
 import getLocations from '@/api/admin/locations/getLocations';
 import { Button } from '@/components/elements/button';
-import { Size, Variant } from '@/components/elements/button/types';
+import { Variant } from '@/components/elements/button/types';
 import Field from '@/components/elements/Field';
 import Modal from '@/components/elements/Modal';
 import FlashMessageRender from '@/components/FlashMessageRender';
 import useFlash from '@/plugins/useFlash';
+import { PlusIcon } from '@heroicons/react/outline';
 
 interface Values {
     short: string;
@@ -101,12 +102,10 @@ export default () => {
             </Formik>
 
             <Button
-                type="button"
-                size={Size.Large}
-                css={tw`h-10 px-4 py-0 whitespace-nowrap`}
+                className="shadow focus:ring-offset-2 focus:ring-offset-neutral-800"
                 onClick={() => setVisible(true)}
             >
-                New Location
+                New Location <PlusIcon className="ml-2 h-5 w-5" />
             </Button>
         </>
     );

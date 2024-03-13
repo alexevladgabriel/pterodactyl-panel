@@ -20,9 +20,10 @@ import AdminTable, {
     ContentWrapper,
     useTableHooks,
 } from '@/components/admin/AdminTable';
-import Button from '@/components/elements/Button';
+import { Button } from '@/components/elements/button';
 import CopyOnClick from '@/components/elements/CopyOnClick';
 import { bytesToString, mbToBytes } from '@/lib/formatters';
+import { PlusIcon } from '@heroicons/react/outline';
 
 const RowCheckbox = ({ id }: { id: number }) => {
     const isChecked = AdminContext.useStoreState(state => state.nodes.selectedNodes.indexOf(id) >= 0);
@@ -94,8 +95,8 @@ const NodesContainer = () => {
 
                 <div css={tw`flex ml-auto pl-4`}>
                     <NavLink to={`/admin/nodes/new`}>
-                        <Button type={'button'} size={'large'} css={tw`h-10 px-4 py-0 whitespace-nowrap`}>
-                            New Node
+                        <Button className="shadow focus:ring-offset-2 focus:ring-offset-neutral-800">
+                            New Node <PlusIcon className="ml-2 h-5 w-5" />
                         </Button>
                     </NavLink>
                 </div>

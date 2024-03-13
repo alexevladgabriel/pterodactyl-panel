@@ -7,11 +7,12 @@ import { object, string } from 'yup';
 import createNest from '@/api/admin/nests/createNest';
 import getNests from '@/api/admin/nests/getNests';
 import { Button } from '@/components/elements/button';
-import { Size, Variant } from '@/components/elements/button/types';
+import { Variant } from '@/components/elements/button/types';
 import Field from '@/components/elements/Field';
 import FlashMessageRender from '@/components/FlashMessageRender';
 import Modal from '@/components/elements/Modal';
 import useFlash from '@/plugins/useFlash';
+import { PlusIcon } from '@heroicons/react/outline';
 
 interface Values {
     name: string;
@@ -100,12 +101,10 @@ export default () => {
             </Formik>
 
             <Button
-                type="button"
-                size={Size.Large}
-                className="h-10 whitespace-nowrap px-4 py-0"
+                className="shadow focus:ring-offset-2 focus:ring-offset-neutral-800"
                 onClick={() => setVisible(true)}
             >
-                New Nest
+                New Nest <PlusIcon className="ml-2 h-5 w-5" />
             </Button>
         </>
     );

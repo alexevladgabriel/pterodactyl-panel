@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom';
 import { useGetUsers } from '@/api/admin/users';
 import type { UUID } from '@/api/definitions';
 import { Transition } from '@/components/elements/transitions';
-import { Button } from '@/components/elements/button/index';
+import { Button } from '@/components/elements/button';
 import Checkbox from '@/components/elements/inputs/Checkbox';
 import InputField from '@/components/elements/inputs/InputField';
 import UserTableRow from '@/components/admin/users/UserTableRow';
@@ -46,7 +46,7 @@ function UsersContainer() {
             <div className="mb-4 flex justify-end">
                 <NavLink to="/admin/users/new">
                     <Button className="shadow focus:ring-offset-2 focus:ring-offset-neutral-800">
-                        Add User <PlusIcon className="ml-2 h-5 w-5" />
+                        New User <PlusIcon className="ml-2 h-5 w-5" />
                     </Button>
                 </NavLink>
             </div>

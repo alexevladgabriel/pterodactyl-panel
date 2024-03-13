@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import PaginationFooter from '@/components/elements/table/PaginationFooter';
 import { DesktopComputerIcon, XCircleIcon } from '@heroicons/react/solid';
 import Spinner from '@/components/elements/Spinner';
-import { styles as btnStyles } from '@/components/elements/button/index';
+import { styles as btnStyles } from '@/components/elements/button';
 import classNames from 'classnames';
 import ActivityLogEntry from '@/components/elements/activity/ActivityLogEntry';
 import Tooltip from '@/components/elements/tooltip/Tooltip';

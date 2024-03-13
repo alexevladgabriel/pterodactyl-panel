@@ -4,7 +4,8 @@ import tw from 'twin.macro';
 import FlashMessageRender from '@/components/FlashMessageRender';
 import AdminContentBlock from '@/components/admin/AdminContentBlock';
 import ServersTable from '@/components/admin/servers/ServersTable';
-import Button from '@/components/elements/Button';
+import { Button } from '@/components/elements/button';
+import { PlusIcon } from '@heroicons/react/outline';
 
 function ServersContainer() {
     return (
@@ -19,8 +20,8 @@ function ServersContainer() {
 
                 <div css={tw`flex ml-auto pl-4`}>
                     <NavLink to={`/admin/servers/new`}>
-                        <Button type={'button'} size={'large'} css={tw`h-10 px-4 py-0 whitespace-nowrap`}>
-                            New Server
+                        <Button className="shadow focus:ring-offset-2 focus:ring-offset-neutral-800">
+                            New Server <PlusIcon className="ml-2 h-5 w-5" />
                         </Button>
                     </NavLink>
                 </div>
