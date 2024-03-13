@@ -19,11 +19,11 @@ import AdminTable, {
     useTableHooks,
 } from '@/components/admin/AdminTable';
 import { Button } from '@/components/elements/button';
-import { Size } from '@/components/elements/button/types';
 import CopyOnClick from '@/components/elements/CopyOnClick';
 import FlashMessageRender from '@/components/FlashMessageRender';
 import useFlash from '@/plugins/useFlash';
 import { AdminContext } from '@/state/admin';
+import { PlusIcon } from '@heroicons/react/outline';
 
 const RowCheckbox = ({ id }: { id: number }) => {
     const isChecked = AdminContext.useStoreState(state => state.mounts.selectedMounts.indexOf(id) >= 0);
@@ -95,8 +95,8 @@ const MountsContainer = () => {
 
                 <div css={tw`flex ml-auto pl-4`}>
                     <NavLink to={`/admin/mounts/new`}>
-                        <Button type={'button'} size={Size.Large} css={tw`h-10 px-4 py-0 whitespace-nowrap`}>
-                            New Mount
+                        <Button className="shadow focus:ring-offset-2 focus:ring-offset-neutral-800">
+                            New Mount <PlusIcon className="ml-2 h-5 w-5" />
                         </Button>
                     </NavLink>
                 </div>

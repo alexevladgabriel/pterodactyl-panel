@@ -6,10 +6,11 @@ import { object, string } from 'yup';
 
 import { getRoles, createRole } from '@/api/admin/roles';
 import FlashMessageRender from '@/components/FlashMessageRender';
-import Button from '@/components/elements/Button';
+import { Button } from '@/components/elements/button';
 import Field from '@/components/elements/Field';
 import Modal from '@/components/elements/Modal';
 import useFlash from '@/plugins/useFlash';
+import { PlusIcon } from '@heroicons/react/outline';
 
 interface Values {
     name: string;
@@ -95,12 +96,10 @@ export default () => {
             </Formik>
 
             <Button
-                type={'button'}
-                size={'large'}
-                css={tw`h-10 px-4 py-0 whitespace-nowrap`}
+                className="shadow focus:ring-offset-2 focus:ring-offset-neutral-800"
                 onClick={() => setVisible(true)}
             >
-                New Role
+                New Role <PlusIcon className="ml-2 h-5 w-5" />
             </Button>
         </>
     );

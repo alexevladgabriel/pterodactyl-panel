@@ -11,7 +11,7 @@ import useFlash from '@/plugins/useFlash';
 import { ServerContext } from '@/state/server';
 import PageContentBlock from '@/components/elements/PageContentBlock';
 import tw from 'twin.macro';
-import { Button } from '@/components/elements/button/index';
+import { Button } from '@/components/elements/button';
 import ScheduleTaskRow from '@/components/server/schedules/ScheduleTaskRow';
 import isEqual from 'react-fast-compare';
 import { format } from 'date-fns';
@@ -135,16 +135,16 @@ export default () => {
                         <div css={tw`bg-neutral-700 rounded-b`}>
                             {schedule.tasks.length > 0
                                 ? schedule.tasks
-                                      .sort((a, b) =>
-                                          a.sequenceId === b.sequenceId ? 0 : a.sequenceId > b.sequenceId ? 1 : -1,
-                                      )
-                                      .map(task => (
-                                          <ScheduleTaskRow
-                                              key={`${schedule.id}_${task.id}`}
-                                              task={task}
-                                              schedule={schedule}
-                                          />
-                                      ))
+                                    .sort((a, b) =>
+                                        a.sequenceId === b.sequenceId ? 0 : a.sequenceId > b.sequenceId ? 1 : -1,
+                                    )
+                                    .map(task => (
+                                        <ScheduleTaskRow
+                                            key={`${schedule.id}_${task.id}`}
+                                            task={task}
+                                            schedule={schedule}
+                                        />
+                                    ))
                                 : null}
                         </div>
                     </div>
