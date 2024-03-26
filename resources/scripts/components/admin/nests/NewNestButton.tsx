@@ -10,9 +10,16 @@ import { Button } from '@/components/elements/button';
 import { Variant } from '@/components/elements/button/types';
 import Field from '@/components/elements/Field';
 import FlashMessageRender from '@/components/FlashMessageRender';
-import Modal from '@/components/elements/Modal';
 import useFlash from '@/plugins/useFlash';
 import { PlusIcon } from '@heroicons/react/outline';
+import {
+    Dialog,
+    DialogContent,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from '@/components/elements/ui/dialog';
 
 interface Values {
     name: string;
@@ -45,23 +52,28 @@ export default () => {
     };
 
     return (
-        <>
-            <Formik onSubmit={submit} initialValues={{ name: '', description: '' }} validationSchema={schema}>
-                {({ isSubmitting, resetForm }) => (
-                    <Modal
-                        visible={visible}
-                        dismissable={!isSubmitting}
-                        showSpinnerOverlay={isSubmitting}
-                        onDismissed={() => {
-                            resetForm();
-                            setVisible(false);
-                        }}
-                    >
-                        <FlashMessageRender byKey={'nest:create'} css={tw`mb-6`} />
-
-                        <h2 css={tw`mb-6 text-2xl text-neutral-100`}>New Nest</h2>
-
+        <Formik onSubmit={submit} initialValues={{ name: '', description: '' }} validationSchema={schema}>
+            {({ resetForm }) => (
+                <Dialog
+                    open={visible}
+                    onOpenChange={open => {
+                        setVisible(open);
+                        resetForm();
+                        clearFlashes('nest:create');
+                    }}
+                >
+                    <DialogTrigger asChild>
+                        <Button className="shadow focus:ring-offset-2 focus:ring-offset-neutral-800">
+                            New Nest <PlusIcon className="ml-2 h-5 w-5" />
+                        </Button>
+                    </DialogTrigger>
+                    <DialogContent className="sm:max-w-[800px] gap-6">
+                        <DialogHeader>
+                            <DialogTitle className="text-2xl text-neutral-100">New Nest</DialogTitle>
+                        </DialogHeader>
                         <Form css={tw`m-0`}>
+                            <FlashMessageRender byKey={'nest:create'} css={tw`mb-3`} />
+
                             <Field
                                 type={'text'}
                                 id={'name'}
@@ -81,31 +93,23 @@ export default () => {
                                 />
                             </div>
 
-                            <div css={tw`flex flex-wrap justify-end mt-6`}>
+                            <DialogFooter>
                                 <Button.Text
                                     type="button"
                                     variant={Variant.Secondary}
-                                    className="w-full sm:mr-2 sm:w-auto"
+                                    css={tw`w-full sm:w-auto sm:mr-2`}
                                     onClick={() => setVisible(false)}
                                 >
                                     Cancel
                                 </Button.Text>
-
-                                <Button type="submit" className="mt-4 w-full sm:mt-0 sm:w-auto">
+                                <Button type={'submit'} css={tw`w-full mt-4 sm:w-auto sm:mt-0`}>
                                     Create Nest
                                 </Button>
-                            </div>
+                            </DialogFooter>
                         </Form>
-                    </Modal>
-                )}
-            </Formik>
-
-            <Button
-                className="shadow focus:ring-offset-2 focus:ring-offset-neutral-800"
-                onClick={() => setVisible(true)}
-            >
-                New Nest <PlusIcon className="ml-2 h-5 w-5" />
-            </Button>
-        </>
+                    </DialogContent>
+                </Dialog>
+            )}
+        </Formik>
     );
 };
